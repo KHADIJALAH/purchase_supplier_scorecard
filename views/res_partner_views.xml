@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_partner_form_supplier_scorecard" model="ir.ui.view">
+        <field name="name">res.partner.form.supplier.scorecard</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Supplier Scorecard" name="supplier_scorecard" invisible="not supplier_rank">
+                    <group>
+                        <group string="Automatic Scores">
+                            <field name="supplier_punctuality_score"/>
+                            <field name="supplier_invoice_compliance_score"/>
+                            <field name="supplier_global_score"/>
+                            <field name="supplier_ranking"/>
+                        </group>
+                    </group>
+                    <field name="supplier_evaluation_ids">
+                        <list string="Evaluations">
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                            <field name="manual_global_note"/>
+                            <field name="state" widget="badge" decoration-success="state == 'validated'" decoration-muted="state == 'closed'"/>
+                        </list>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>

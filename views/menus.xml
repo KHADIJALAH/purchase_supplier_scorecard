@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_purchase_supplier_evaluation"
+              name="Supplier Evaluations"
+              parent="purchase.menu_purchase_root"
+              action="action_purchase_supplier_evaluation"
+              groups="group_supplier_evaluation"
+              sequence="15"/>
+
+</odoo>

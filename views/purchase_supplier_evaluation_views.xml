@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_purchase_supplier_evaluation_list" model="ir.ui.view">
+        <field name="name">purchase.supplier.evaluation.list</field>
+        <field name="model">purchase.supplier.evaluation</field>
+        <field name="arch" type="xml">
+            <list string="Supplier Evaluations">
+                <field name="partner_id"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="quality_note" optional="hide"/>
+                <field name="responsiveness_note" optional="hide"/>
+                <field name="price_note" optional="hide"/>
+                <field name="manual_global_note"/>
+                <field name="partner_ranking" optional="hide"/>
+                <field name="state" widget="badge" decoration-success="state == 'validated'" decoration-muted="state == 'closed'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_purchase_supplier_evaluation_form" model="ir.ui.view">
+        <field name="name">purchase.supplier.evaluation.form</field>
+        <field name="model">purchase.supplier.evaluation</field>
+        <field name="arch" type="xml">
+            <form string="Supplier Evaluation">
+                <header>
+                    <button name="action_validate" string="Validate" type="object"
+                            invisible="state != 'draft'" class="oe_highlight"/>
+                    <button name="action_close" string="Close" type="object"
+                            invisible="state != 'validated'" class="oe_highlight"/>
+                    <button name="action_reset_to_draft" string="Reset to Draft" type="object"
+                            invisible="state != 'validated'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,validated,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="partner_id" options="{'no_create': True}" readonly="state != 'draft'"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Period">
+                            <field name="period_start" readonly="state != 'draft'"/>
+                            <field name="period_end" readonly="state != 'draft'"/>
+                            <field name="company_id" groups="base.group_multi_company" readonly="state != 'draft'"/>
+                        </group>
+                        <group string="Ratings (0 to 5)">
+                            <field name="quality_note" readonly="state == 'closed'"/>
+                            <field name="responsiveness_note" readonly="state == 'closed'"/>
+                            <field name="price_note" readonly="state == 'closed'"/>
+                            <field name="manual_global_note"/>
+                        </group>
+                    </group>
+                    <group string="Comment">
+                        <field name="comment" nolabel="1" readonly="state == 'closed'"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_purchase_supplier_evaluation_search" model="ir.ui.view">
+        <field name="name">purchase.supplier.evaluation.search</field>
+        <field name="model">purchase.supplier.evaluation</field>
+        <field name="arch" type="xml">
+            <search string="Search Supplier Evaluations">
+                <field name="partner_id"/>
+                <field name="period_start"/>
+                <filter string="Draft" name="filter_draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Validated" name="filter_validated" domain="[('state', '=', 'validated')]"/>
+                <filter string="Closed" name="filter_closed" domain="[('state', '=', 'closed')]"/>
+                <separator/>
+                <filter string="Ranking A" name="filter_ranking_a" domain="[('partner_ranking', '=', 'a')]"/>
+                <filter string="Ranking B" name="filter_ranking_b" domain="[('partner_ranking', '=', 'b')]"/>
+                <filter string="Ranking C" name="filter_ranking_c" domain="[('partner_ranking', '=', 'c')]"/>
+                <filter string="Not Evaluated" name="filter_ranking_none" domain="[('partner_ranking', '=', 'none')]"/>
+                <separator/>
+                <filter string="This Month" name="filter_period_this_month"
+                        domain="[('period_start', '&gt;=', context_today().strftime('%Y-%m-01'))]"/>
+                <filter string="This Year" name="filter_period_this_year"
+                        domain="[('period_start', '&gt;=', context_today().strftime('%Y-01-01'))]"/>
+                <separator/>
+                <filter string="Period" name="group_by_period" context="{'group_by': 'period_start:month'}"/>
+                <filter string="Supplier Ranking" name="group_by_ranking" context="{'group_by': 'partner_ranking'}"/>
+                <filter string="Supplier" name="group_by_partner" context="{'group_by': 'partner_id'}"/>
+                <filter string="Status" name="group_by_state" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_purchase_supplier_evaluation_graph" model="ir.ui.view">
+        <field name="name">purchase.supplier.evaluation.graph</field>
+        <field name="model">purchase.supplier.evaluation</field>
+        <field name="arch" type="xml">
+            <graph string="Supplier Global Notes" type="bar">
+                <field name="partner_id"/>
+                <field name="manual_global_note" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_purchase_supplier_evaluation" model="ir.actions.act_window">
+        <field name="name">Supplier Evaluations</field>
+        <field name="res_model">purchase.supplier.evaluation</field>
+        <field name="view_mode">list,form,graph</field>
+        <field name="search_view_id" ref="view_purchase_supplier_evaluation_search"/>
+        <field name="context">{'search_default_group_by_partner': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new supplier evaluation
+            </p>
+            <p>
+                Periodic manual evaluations complement the automatic
+                scorecard with qualitative ratings on quality,
+                responsiveness and price.
+            </p>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_supplier_scorecard" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.supplier.scorecard</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
+        <field name="arch" type="xml">
+            <block name="invoicing_settings_container" position="after">
+                <block title="Supplier Scorecard" name="supplier_scorecard_setting_container">
+                    <setting id="supplier_scorecard_weights"
+                             company_dependent="1"
+                             help="Relative weights used to compute the global supplier score">
+                        <field name="supplier_scorecard_punctuality_weight"/>
+                        <field name="supplier_scorecard_invoice_weight"/>
+                    </setting>
+                </block>
+            </block>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_purchase_supplier_evaluation_evaluator,purchase.supplier.evaluation evaluator,model_purchase_supplier_evaluation,group_supplier_evaluation,1,1,1,1

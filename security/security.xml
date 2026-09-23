@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="group_supplier_evaluation" model="res.groups">
+            <field name="name">Supplier Evaluation</field>
+            <field name="category_id" ref="base.module_category_inventory_purchase"/>
+            <field name="implied_ids" eval="[(4, ref('purchase.group_purchase_user'))]"/>
+        </record>
+
+        <record id="purchase_supplier_evaluation_comp_rule" model="ir.rule">
+            <field name="name">Purchase Supplier Evaluation: multi-company</field>
+            <field name="model_id" ref="model_purchase_supplier_evaluation"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+    </data>
+</odoo>

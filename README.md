@@ -38,12 +38,20 @@ price competitiveness.
 
 ## Screenshots
 
-- `static/description/scorecard_tab.png` — Supplier Scorecard tab on
-  the vendor form.
-- `static/description/evaluation_form.png` — Manual evaluation form.
+**Supplier Scorecard tab on the vendor form** — automatic scores and
+ranking, computed from real purchase and invoicing data.
 
-*(Screenshot files are not included in this repository; add them under
-`static/description/` before publishing to an app store.)*
+![Supplier Scorecard tab](static/description/scorecard_tab.png)
+
+**Supplier Evaluations, filtered by ranking** — the search view's
+built-in Ranking A/B/C/Not Evaluated filters.
+
+![Supplier Evaluations list filtered by Ranking A](static/description/evaluation_list_ranking_filter.png)
+
+**Graph view** — manual global note by supplier, for a quick visual
+comparison.
+
+![Supplier Evaluations graph view](static/description/evaluation_graph.png)
 
 ## Installation
 

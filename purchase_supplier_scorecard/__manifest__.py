@@ -1,6 +1,6 @@
 {
     'name': 'Purchase Supplier Scorecard',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0.1',
     'category': 'Inventory/Purchase',
     'summary': 'Automatic and manual supplier performance scoring for the Purchase module',
     'description': """
@@ -26,6 +26,7 @@ Key features
     'author': 'Khadija Lahlou',
     'website': 'https://khadija-portfolio-nine.vercel.app/',
     'license': 'LGPL-3',
+    'images': ['static/description/banner.png'],
     'depends': [
         'mail',
         'purchase',
